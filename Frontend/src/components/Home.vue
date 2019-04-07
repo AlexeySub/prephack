@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h1>Главная страница</h1>
-      <hdr/>
+      <!--<h1>Главная страница</h1>-->
+      <hdr></hdr>
 
     </div>
 </template>
@@ -10,7 +10,13 @@
 
     export default {
         name: "Home",
+
+      computed: {
+
+      }
+
     }
+
 </script>
 
 <style scoped>

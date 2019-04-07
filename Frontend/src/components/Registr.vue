@@ -67,8 +67,8 @@
           errors: [],
           visible: false,
           options: [
-            { text: 'Я фрилансер', value: 'radio1' },
-            { text: 'Я заказчик', value: 'radio2' }],
+            { text: 'Я студент', value: 'ST' },
+            { text: 'Я учитель', value: 'TC' }],
         }
       },
       methods: {
@@ -77,26 +77,24 @@
 
           if (this.login && this.password && this.email && this.passwordb && this.selected) {
             console.log(this.selected);
-            axios.post('PosilauSuda.php', {
+            axios.post('/users/', {
               username: this.login,
               password: this.password,
-              picvalue: this.selected
+              usertype: this.selected,
+              email: this.email
             })
               .then(function (response) {
-                console.log(response.data.attributes.auth_token);
-                sessionStorage.setItem("auth_token", response.data.attributes.auth_token);
+
                 console.log(response);
               })
               .catch(function (error) {
-                if (error.status === 400) {
-                  alert("ERROR");
-                }
+
 
                 console.log(error);
               });
 
 
-            this.$router.push({name: "home"});
+            this.$router.push({name: "login"});
           }
           else {
             this.visible=!this.visible;

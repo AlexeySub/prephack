@@ -22,6 +22,10 @@
 
         <button class="btn btn-secondary" @click="btnclck">Войти</button>
 
+
+                <button class="btn btn-secondary" @click="btnreg">Регистрация</button>
+
+
             </form>
       </div>
         </div>
@@ -35,8 +39,8 @@
         name: "Login",
         data() {
             return {
-            login: "",
-            password: "",
+              login: "",
+              password: "",
               errors: [],
               visible: false
           }
@@ -45,21 +49,19 @@
         btnclck: function (e) {
           e.preventDefault();
           if (this.login && this.password) {
-            console.log("dsfsdfsd");
-            axios.post('PosilauSuda.php', {
-              username: this.login,
-              password: this.password
-            })
-              .then(function (response) {
-                console.log(response.data.attributes.auth_token);
-                sessionStorage.setItem("auth_token", response.data.attributes.auth_token);
+            axios.post('/auth/', {
+              login: this.login,
+            password: this.password})
+              .then(response => {
+              const auth_token = response.data.auth_token;
+                console.log(auth_token);
+
+                sessionStorage.setItem('auth_token', auth_token);
+
                 console.log(response);
               })
               .catch(function (error) {
-                if (error.status === 400) {
-                  alert("ERROR");
-                }
-                ;
+
                 console.log(error);
               });
             this.$router.push({name: "home"})
@@ -69,7 +71,12 @@
             this.visible=!this.visible;
             this.errors.push('Заполните все поля!');
           }
+        },
+
+        btnreg: function () {
+          this.$router.push({name: "registr"})
         }
+
       }
     }
 </script>
