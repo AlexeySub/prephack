@@ -92,12 +92,8 @@ WSGI_APPLICATION = 'hack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddj2fcnrq9ep4p',
-        'USER': 'dlvmbhpmoqpvdg',
-        'PASSWORD': 'f64692a4face2d1a351993c151fc2c6aa8e3a6ae62df0338485eb34fb13af6ac',
-        'HOST': 'ec2-54-228-243-238.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
