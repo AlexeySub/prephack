@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
 from django.core import exceptions
 from django import db
+import jwt
 
 
 class UserRegister(View):
@@ -24,14 +25,16 @@ class UserRegister(View):
 class UserAuth(View):
     def post(self, request):
         data = parsers.JSONParser().parse(request)
+        authtoken=jwt.encode(data, 'secret', algorithm='HS256').decode('UTF-8')
+        print(authtoken)
         try:
             user = User.objects.get(name=data['login'])
         except exceptions.ObjectDoesNotExist:
             return HttpResponse('Unauthorized', status=401)
         if user.password == make_password(data['password'], salt='123'):
-            userAuth = UserAuthen(user_id=user.id, token='ee4', is_authenticated=True)
+            userAuth = UserAuthen(user_id=user.id, token=authtoken, is_authenticated=True)
             userAuth.save()
-            return HttpResponse(renderers.JSONRenderer().render({'auth_token':'ee4'}))
+            return HttpResponse(renderers.JSONRenderer().render({'auth_token':authtoken}))
         else:
             return HttpResponse('Unauthorized', status=401)
 
