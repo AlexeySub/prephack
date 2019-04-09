@@ -1,1 +1,1 @@
-web: gunicorn MyTest.wsgi --log-file -
+web: gunicorn hack.wsgi --log-file -
