@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 class User(models.Model):
@@ -24,3 +25,10 @@ class UserAuthen(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE, primary_key=True, null=None, unique=True)
     token = models.CharField(max_length=300)
     is_authenticated = models.BooleanField(default=False)
+
+
+class Message(models.Model):
+    id = models.AutoField(primary_key=True, null=None, unique=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, null=None)
+    date = models.DateTimeField(auto_now=True)
+    text = models.TextField()
