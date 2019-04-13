@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.core import exceptions
 from django import db
 import jwt, time
+from django.shortcuts import render
 
 
 class UserRegister(View):
@@ -70,4 +71,6 @@ class Chat(View):
         return HttpResponse(renderers.JSONRenderer().render(chat.text))
 
 
+def index(request):
+    return render(request, 'index.html')
 
